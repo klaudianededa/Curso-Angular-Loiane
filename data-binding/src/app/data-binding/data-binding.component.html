@@ -92,3 +92,18 @@
     </div>
   </article>
 </section>
+
+
+<section class="two-way-binding">
+  <article>
+    <h3>
+      <div>
+        <input type="text"
+        [value] = "nome"
+        (input) = "nome = $event.target.value"
+        />
+        <p>Você digitou: {{ nome }}</p>
+      </div>
+    </h3>
+  </article>
+</section>
