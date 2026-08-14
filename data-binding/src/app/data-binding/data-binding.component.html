@@ -1,0 +1,94 @@
+<head>
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
+    integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
+</head>
+<section class="property-binding">
+
+  <p>===== aula 9 =====</p>
+  <article>
+    <h3>Interpolation - Interpolação</h3>
+    <p>String renderizada com interpolação: {{ url }}</p>
+    <p>Resultado de 1 + 1: {{ 1 + 1 }}</p>
+    <p>Resultado de 1+ 1 não é {{ 1 + 1 + getValor() }}</p>
+    <p>Curso de angular e gosto do curso: {{ cursoAngular && getCurtirCurso() }}</p>
+  </article>
+
+  <article>
+    <h3>Property Binding</h3>
+    <img src="{{ urlImagem }}">
+    <img [src]="urlImagem"> <!--[] para indicar que é uma property-binding-->
+    <img bind-src="urlImagem"> <!--o mesmo q a linha acima-->
+  </article>
+
+  <p>===== aula 10 =====</p>
+  <article>
+    <h3>Class e Style Binding</h3>
+    <div>
+      selecione uma classe:
+      <select #classe (change)="0">
+        <option value="alert-success">sucesso</option>
+        <option value="alert-info">info</option>
+        <option value="alert-warning">alerta</option>
+        <option value="alert-danger">erro</option>
+      </select>
+      <br /><br />
+
+      <div class="alert {{ classe.value }}" role="alert">
+        texto colorido conforme valor do combobox.
+      </div>
+
+      <div class="alert" role="alert" [class.alert-success]="classe.value == 'alert-success'">
+        sucesso</div>
+      <div class="alert" role="alert" [class.alert-info]="classe.value == 'alert-info'">
+        info</div>
+      <div class="alert" role="alert" [class.alert-warning]="classe.value == 'alert-warning'">
+        alerta</div>
+      <div class="alert" role="alert" [class.alert-danger]="classe.value == 'alert-danger'">
+        erro</div>
+
+
+      <div class="alert alert-danger" role="alert" [style.display]="classe.value == 'alert-danger' ? 'block' : 'none'">
+        esse texto aparece somente em caso de erro.
+      </div>
+
+    </div>
+
+
+
+  </article>
+</section>
+
+
+
+
+<section class="event-binding">
+  <article>
+    <h3>event binding</h3>
+    <div>
+
+      <button (click)="botaoClicado()" class="btn btn-primary">
+        clique aqui
+      </button>
+      <br><br>
+
+      <input type="text"
+      (keyup)="onKeyUp($event)"
+      (keyup.enter)="salvarValor(campoInput.value)"
+      (blur)="salvarValor(campoInput.value)"
+      #campoInput>
+
+      <p>Valor atual: {{ valorAtual }}</p>
+      <p>Valor salvo: {{ valorSalvo }}</p>
+
+      <br>
+      <span
+      (mouseover)="onMouseOverOut()"
+      (mouseout)="onMouseOverOut()"
+      [class.highlight] = 'isMouseOver'
+      >
+        passe o mouse
+      </span>
+    </div>
+  </article>
+</section>
