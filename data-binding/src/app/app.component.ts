@@ -6,12 +6,6 @@ import { Component } from '@angular/core';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent {
-  nome: string = 'abc';
-
-  pessoa: any = {
-    nome: 'def',
-    idade: 20
-  }
 
   title = 'data-binding';
 }
