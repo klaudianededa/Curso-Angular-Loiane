@@ -10,11 +10,11 @@ export class AppComponent {
   valor: number = 5;
   deletarCiclo: boolean = false;
 
-  mudarValor(){
+  mudarValor() {
     this.valor++;
   }
 
-  destruirCiclo(){
-this.deletarCiclo = true;
+  destruirCiclo() {
+    this.deletarCiclo = true;
   }
 }

@@ -22,5 +22,5 @@ import { CursosModule } from './cursos/cursos.module';
   ],
   providers: [],
   bootstrap: [AppComponent]
-})
+}) 
 export class AppModule { }
