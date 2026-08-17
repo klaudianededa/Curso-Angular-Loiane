@@ -3,7 +3,7 @@
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css"
     integrity="sha384-BVYiiSIFeK1dGmJRAkycuHAHRg32OmUcww7on3RYdg4Va+PmSTsz/K68vbdEjh4u" crossorigin="anonymous">
 </head>
-<section class="property-binding">
+<!--<section class="property-binding">
   <p>===== aula 9 =====</p>
   <article>
     <h3>Interpolation - Interpolação</h3>
@@ -15,8 +15,8 @@
   <article>
     <h3>Property Binding</h3>
     <img src="{{ urlImagem }}">
-    <img [src]="urlImagem"> <!--[] para indicar que é uma property-binding-->
-    <img bind-src="urlImagem"> <!--o mesmo q a linha acima-->
+    <img [src]="urlImagem">
+    <img bind-src="urlImagem">
   </article>
   <p>===== aula 10 =====</p>
   <article>
@@ -67,12 +67,16 @@
   </article>
 </section>
 
-<app-meu-form></app-meu-form>
+<app-meu-form></app-meu-form>-->
 
 <section>
   <article>
     <h3>Input/Output Properties</h3>
 
     <app-curso [nome]="nomeDoCurso"></app-curso>
+    <contador
+      [valor]="valorInicial"
+      (mudouValor)="onMudouValor($event)">
+    </contador>
   </article>
 </section>
