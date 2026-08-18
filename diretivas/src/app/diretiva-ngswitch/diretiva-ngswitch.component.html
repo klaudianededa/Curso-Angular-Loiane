@@ -1,13 +1,55 @@
-<nav class="navbar navbar-dark bg-primary">
-  <div class="nav navbar-nav">
-    <a class="nav-item nav-link" [class.active]="aba == 'home'" (click)="aba = 'home'">Home</a>
-    <a class="nav-item nav-link" [class.active]="aba == 'mapa'" (click)="aba = 'mapa'">Mapa</a>
-    <a class="nav-item nav-link" [class.active]="aba == 'lista'" (click)="aba = 'lista'">Lista</a>
+<nav class="navbar navbar-default">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <a class="navbar-brand">Diretivas</a>
+    </div>
+
+    <ul class="nav navbar-nav">
+      <li [class.active]="aba == 'home'">
+        <a (click)="aba = 'home'">Home</a>
+      </li>
+
+      <li [class.active]="aba == 'mapa'">
+        <a (click)="aba = 'mapa'">Mapa</a>
+      </li>
+
+      <li [class.active]="aba == 'lista'">
+        <a (click)="aba = 'lista'">Lista</a>
+      </li>
+    </ul>
   </div>
 </nav>
 
 <div class="container" [ngSwitch]="aba">
-  <p *ngSwitchCase="'mapa'">Modo mapa</p>
-  <p *ngSwitchCase="'lista'">Modo lista</p>
-  <p *ngSwitchDefault>Home</p>
+
+  <p *ngSwitchCase="'mapa'">
+    Modo mapa
+  </p>
+
+  <p *ngSwitchCase="'lista'">
+    Modo lista
+  </p>
+
+  <p *ngSwitchDefault>
+    Home
+  </p>
+
+</div>
+
+<h4>Removendo o * e usando template</h4>
+
+<div class="container" [ngSwitch]="aba">
+
+  <ng-template [ngSwitchCase]="'mapa'">
+    <p>Modo mapa</p>
+  </ng-template>
+
+  <ng-template [ngSwitchCase]="'lista'">
+    <p>Modo lista</p>
+  </ng-template>
+
+  <ng-template ngSwitchDefault>
+    <p>Home</p>
+  </ng-template>
+
 </div>
