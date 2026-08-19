@@ -1,0 +1,6 @@
+<p>Descrição: {{ tarefa.desc }}</p>
+<!--p>Responsável: {{ tarefa.resposavel.nome }}</-->
+<!--p>Responsável: {{ tarefa.resposavel != null ? tarefa.responsavel.nome : '' }}</p-->
+
+<!-- Operador Elvis (?.): permite acessar propriedades de objetos sem causar erro caso alguma delas seja null ou undefined. -->
+<p>Responsável: {{ tarefa.resposavel?.usuario?.nome }}</p>
