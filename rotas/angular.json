@@ -27,9 +27,9 @@
               "src/styles.css"
             ],
             "scripts": [
-                 "../jquery/dist/jquery.js",
-              "../hammerjs/hammer.js",
-              "../materialize-css/dist/js/materialize.js"
+              "node_modules/jquery/dist/jquery.js",
+              "node_modules/hammerjs/hammer.js",
+              "node_modules/materialize-css/dist/js/materialize.js"
             ]
           },
           "configurations": {
@@ -123,6 +123,10 @@
           }
         }
       }
-    }},
-  "defaultProject": "rotas"
+    }
+  },
+  "defaultProject": "rotas",
+  "cli": {
+    "analytics": false
+  }
 }
