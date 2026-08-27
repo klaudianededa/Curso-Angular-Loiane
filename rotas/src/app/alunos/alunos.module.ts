@@ -1,6 +1,7 @@
 import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { AlunosComponent } from './alunos.component';
 import { AlunoFormComponent } from './aluno-form/aluno-form.component';
@@ -13,6 +14,7 @@ import { AlunosService } from './alunos.service';
   imports: [
     CommonModule,
     FormsModule,
+    RouterModule,
     AlunosRoutingModule
   ],
   exports: [],

@@ -15,8 +15,9 @@ import { LoginComponent } from './login/login.component';
 //import { CursoNaoEncontradoComponent } from './cursos/curso-nao-encontrado/curso-nao-encontrado.component';
 import { AppRoutingModule } from './app.routing.module';
 //import { CursosModule } from './cursos/cursos.module';
-import { AlunosComponent } from './alunos/alunos.component';
-import { AlunosModule } from './alunos/alunos.module';
+//import { AlunosComponent } from './alunos/alunos.component';
+import { AuthService } from './login/auth.service';
+//import { AlunosModule } from './alunos/alunos.module';
 //import { AlunosComponent } from './alunos/alunos.component';
 
 @NgModule({
@@ -29,12 +30,14 @@ import { AlunosModule } from './alunos/alunos.module';
     //CursoNaoEncontradoComponent
     //AlunosComponent
   ],
-
+  providers: [
+AuthService
+  ],
   imports: [
     BrowserModule,
     FormsModule,
     //CursosModule,
-    AlunosModule,
+    //AlunosModule,
     AppRoutingModule
     //routing
   ],
