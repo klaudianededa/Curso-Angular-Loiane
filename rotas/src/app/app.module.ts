@@ -17,6 +17,7 @@ import { AppRoutingModule } from './app.routing.module';
 //import { CursosModule } from './cursos/cursos.module';
 //import { AlunosComponent } from './alunos/alunos.component';
 import { AuthService } from './login/auth.service';
+import { AuthGuard } from './guards/auth.guard';
 //import { AlunosModule } from './alunos/alunos.module';
 //import { AlunosComponent } from './alunos/alunos.component';
 
@@ -30,9 +31,7 @@ import { AuthService } from './login/auth.service';
     //CursoNaoEncontradoComponent
     //AlunosComponent
   ],
-  providers: [
-AuthService
-  ],
+
   imports: [
     BrowserModule,
     FormsModule,
@@ -41,7 +40,9 @@ AuthService
     AppRoutingModule
     //routing
   ],
-
+  providers: [
+    AuthService, AuthGuard
+  ],
   //providers: [CursosService],
 
   bootstrap: [AppComponent]
