@@ -18,6 +18,8 @@ import { AppRoutingModule } from './app.routing.module';
 //import { AlunosComponent } from './alunos/alunos.component';
 import { AuthService } from './login/auth.service';
 import { AuthGuard } from './guards/auth.guard';
+import { CursosGuard } from './guards/cursos.guard';
+import { AlunosGuard } from './guards/alunos.guard';
 //import { AlunosModule } from './alunos/alunos.module';
 //import { AlunosComponent } from './alunos/alunos.component';
 
@@ -41,7 +43,7 @@ import { AuthGuard } from './guards/auth.guard';
     //routing
   ],
   providers: [
-    AuthService, AuthGuard
+    AuthService, AuthGuard, CursosGuard, AlunosGuard
   ],
   //providers: [CursosService],
 
