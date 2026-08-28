@@ -2,7 +2,7 @@ import { Injectable } from '@angular/core';
 import { ActivatedRouteSnapshot, CanActivate, CanLoad, RouterStateSnapshot, UrlTree } from '@angular/router';
 import { Observable } from 'rxjs';
 import { AuthService } from '../login/auth.service';
-import { Router } from '@angular/router';
+import { Router, Route } from '@angular/router';
 
 @Injectable({
   providedIn: 'root'
@@ -20,7 +20,7 @@ export class AuthGuard implements CanActivate, CanLoad {
 
     console.log('AuthGuard');
 
-    return this.verificarAcesso;
+    return this.verificarAcesso();
   }
 
   private verificarAcesso() {
