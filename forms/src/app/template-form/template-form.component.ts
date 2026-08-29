@@ -7,6 +7,9 @@ import { Component, OnInit } from '@angular/core';
 })
 export class TemplateFormComponent implements OnInit {
 
+  onSubmit(form) {
+
+  }
   constructor() { }
 
   ngOnInit(): void {
