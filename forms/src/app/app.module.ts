@@ -1,24 +1,25 @@
 import { BrowserModule } from '@angular/platform-browser';
-import { FormsModule } from '@angular/forms';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import { NgModule } from '@angular/core';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
-import { DataFormComponent } from './data-form/data-form.component';
 import { TemplateFormModule } from './template-form/template-form.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DataFormModule } from './data-form/data-form.module';
 
 @NgModule({
   declarations: [
-    AppComponent,
-    DataFormComponent
+    AppComponent
   ],
   imports: [
     BrowserModule,
     AppRoutingModule,
     FormsModule,
+    ReactiveFormsModule,
     TemplateFormModule,
-    HttpClientModule
+    HttpClientModule,
+    DataFormModule
   ],
   providers: [],
   bootstrap: [AppComponent]
