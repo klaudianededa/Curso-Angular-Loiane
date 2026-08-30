@@ -12,7 +12,7 @@ export class TemplateFormComponent implements OnInit {
     email: null
   }
 
-  onSubmit(form) {
+  onSubmit(form: any) {
     console.log(form);
 
     // console.log(this.usuario);
@@ -20,6 +20,16 @@ export class TemplateFormComponent implements OnInit {
   constructor() { }
 
   ngOnInit(): void {
+  }
+
+  verificaValidTouched(campo: any) {
+    return !campo.valid && campo.touched;
+  }
+  aplicaCssErro(campo: any) {
+    return {
+      'class.has-error': this.verificaValidTouched(campo),
+      'class.has-feedback]': this.verificaValidTouched(campo)
+    }
   }
 
 }
