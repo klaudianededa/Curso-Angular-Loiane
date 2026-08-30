@@ -13,8 +13,17 @@ export class TemplateFormComponent implements OnInit {
     email: null
   };
 
-  onSubmit(form: any) {
-    console.log(form);
+  onSubmit(formulario) {
+    console.log(formulario);
+
+    // form.value
+    // console.log(this.usuario);
+
+    this.http.post('https://httpbin.org/post', JSON.stringify(formulario.value))
+      .subscribe(dados => {
+        console.log(dados);
+        formulario.form.reset();
+      });
   }
 
   constructor(private http: HttpClient) { }
