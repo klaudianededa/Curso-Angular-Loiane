@@ -1,6 +1,6 @@
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
 
 @Component({
   selector: 'app-data-form',
@@ -40,21 +40,39 @@ export class DataFormComponent implements OnInit {
 
     console.log(this.formulario.value);
 
-    this.http.post(
-      'https://httpbin.org/post',
-      JSON.stringify(this.formulario.value)
-    )
-      .subscribe(
-        dados => {
-          console.log(dados);
+    if (this.formulario.valid) {
+      this.http.post(
+        'https://httpbin.org/post',
+        JSON.stringify(this.formulario.value)
+      )
+        .subscribe(
+          dados => {
+            console.log(dados);
 
-          // reseta o form
-          // this.formulario.reset();
-          // this.resetar();
-        },
-        (error: any) => alert('erro')
-      );
+            // reseta o form
+            // this.formulario.reset();
+            // this.resetar();
+          },
+          (error: any) => alert('erro')
+        );
+    } else {
+      console.log('formulario inválido.')
+      this.verificaValidacoesForm(this.formulario);
+    }
+
   }
+
+  verificaValidacoesForm(formGroup: FormGroup) {
+    Object.keys(formGroup.controls).forEach(campo => {
+      console.log(campo);
+      const controle = formGroup.get(campo);
+      controle.markAsDirty();
+      if(controle instanceof FormGroup){
+        this.verificaValidacoesForm(controle);
+      }
+    });
+  }
+
 
   resetar() {
     this.formulario.reset();
@@ -70,7 +88,7 @@ export class DataFormComponent implements OnInit {
     let campoEmail = this.formulario.get('email');
 
     if (campoEmail?.errors) {
-      return campoEmail.errors['email'] && campoEmail.touched;
+      return campoEmail?.errors?.['email'] && (campoEmail.touched || campoEmail.dirty);
     }
 
   }
@@ -85,7 +103,7 @@ export class DataFormComponent implements OnInit {
   }
 
 
-  consultaCEP(){
+  consultaCEP() {
 
     let cep = this.formulario.get('endereco.cep').value;
 
@@ -99,18 +117,17 @@ export class DataFormComponent implements OnInit {
       var validacep = /^[0-9]{8}$/;
 
       //Valida o formato do CEP.
-      if(validacep.test(cep)) {
+      if (validacep.test(cep)) {
 
         this.resetaDadosForm();
 
         this.http.get(`//viacep.com.br/ws/${cep}/json`)
-          .map(dados => dados.json())
           .subscribe(dados => this.populaDadosForm(dados));
       }
     }
   }
 
-  populaDadosForm(dados){
+  populaDadosForm(dados) {
 
 
     this.formulario.setValue({
@@ -133,7 +150,7 @@ export class DataFormComponent implements OnInit {
     //console.log(form);
   }
 
-  resetaDadosForm(){
+  resetaDadosForm() {
     this.formulario.patchValue({
       endereco: {
         rua: null,
