@@ -1,7 +1,7 @@
 import { DropdownService } from './../shared/services/dropdown.service';
 import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import { Form, FormBuilder, FormControl, FormGroup, Validators } from '@angular/forms';
+import { Form, FormBuilder, FormControl, FormGroup, Validators, FormArray } from '@angular/forms';
 import { EstadoBr } from '../shared/models/estado-br.model';
 import { ConsultaCepService } from '../shared/services/consulta-cep.service';
 import { Observable } from 'rxjs';
@@ -19,6 +19,8 @@ export class DataFormComponent implements OnInit {
   cargos: any[];
   tecnologias: any[];
   newsletterOp: any[];
+
+  frameworks = ['Angular', 'React', 'Vue', 'Sencha'];
 
   constructor(
     private formBuilder: FormBuilder,
@@ -63,14 +65,40 @@ export class DataFormComponent implements OnInit {
       cargo: [null],
       tecnologias: [null],
       newsletter: ['s'],
-      termos: [null, Validators.pattern('true')]
+      termos: [null, Validators.pattern('true')],
+      frameworks: this.buildFrameworks()
     });
 
+  }
+
+  get frameworksControls() {
+    return (this.formulario.get('frameworks') as FormArray).controls;
+  }
+
+  buildFrameworks() {
+    const values = this.frameworks.map(v => new FormControl(false));
+    return this.formBuilder.array(values);
+    /* this.formBuilder.array( [
+      new FormControl(false), // angular
+      new FormControl(false), // react
+      new FormControl(false), // vue
+      new FormControl(false) // sencha
+    ]); */
   }
 
   onSubmit() {
 
     console.log(this.formulario.value);
+
+    let valueSubmit = Object.assign({}, this.formulario.value);
+
+    valueSubmit = Object.assign(valueSubmit, {
+      frameworks: valueSubmit.frameworks
+        .map((v, i) => v ? this.frameworks[i] : null)
+        .filter(v => v !== null)
+    });
+
+    console.log(valueSubmit);
 
     if (this.formulario.valid) {
       this.http.post(
@@ -163,7 +191,7 @@ export class DataFormComponent implements OnInit {
       }
     });
 
-    this.formulario.get('nome').setValue('Loiane');
+    this.formulario.get('nome').setValue('Nome');
 
     //console.log(form);
   }
@@ -187,13 +215,13 @@ export class DataFormComponent implements OnInit {
 
   compararCargos(obj1, obj2) {
     return obj1 && obj2 ? (obj1.nome === obj2.nome && obj1.nivel === obj2.nivel) : obj1 === obj2;
-  /*if (obj1 && obj2) {
-      return obj1.nome === obj2.nome && obj1.nivel === obj2.nivel;
-    }else {
-      return obj1 === obj2;
-    }*/
+    /*if (obj1 && obj2) {
+        return obj1.nome === obj2.nome && obj1.nivel === obj2.nivel;
+      }else {
+        return obj1 === obj2;
+      }*/
   }
-   setarTecnologias() {
+  setarTecnologias() {
     this.formulario.get('tecnologias').setValue(['java', 'javascript', 'php']);
   }
 }
