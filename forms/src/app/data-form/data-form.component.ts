@@ -16,20 +16,22 @@ export class DataFormComponent implements OnInit {
   formulario: FormGroup;
   //estados: EstadoBr[];
   estados: Observable<EstadoBr[]>;
+  cargos: any[];
 
   constructor(
     private formBuilder: FormBuilder,
     private http: HttpClient,
-    private dropdownService : DropdownService,
+    private dropdownService: DropdownService,
     private cepService: ConsultaCepService
   ) { }
 
   ngOnInit(): void {
 
     this.estados = this.dropdownService.getEstadosBr();
+    this.cargos = this.dropdownService.getCargos();
 
-     /*this.dropdownService.getEstadosBr()
-     .subscribe((dados: any) => {this.estados = dados; console.log(dados);});*/
+    /*this.dropdownService.getEstadosBr()
+    .subscribe((dados: any) => {this.estados = dados; console.log(dados);});*/
 
     /*this.formulario = new FormGroup({
       nome: new FormControl(null),
@@ -52,8 +54,9 @@ export class DataFormComponent implements OnInit {
         bairro: [null, Validators.required],
         cidade: [null, Validators.required],
         estado: [null, Validators.required]
-      })
+      }),
 
+      cargo: [null]
     });
 
   }
@@ -89,7 +92,7 @@ export class DataFormComponent implements OnInit {
       console.log(campo);
       const controle = formGroup.get(campo);
       controle.markAsDirty();
-      if(controle instanceof FormGroup){
+      if (controle instanceof FormGroup) {
         this.verificaValidacoesForm(controle);
       }
     });
@@ -131,7 +134,7 @@ export class DataFormComponent implements OnInit {
 
     if (cep != null && cep !== '') {
       this.cepService.consultaCEP(cep)
-      .subscribe(dados => this.populaDadosForm(dados));
+        .subscribe(dados => this.populaDadosForm(dados));
     }
   }
 
@@ -168,5 +171,19 @@ export class DataFormComponent implements OnInit {
         estado: null
       }
     });
+  }
+
+  setarCargo() {
+    const cargo = { nome: 'Dev', nivel: 'Pleno', desc: 'Dev Pl' };
+    this.formulario.get('cargo').setValue(cargo);
+  }
+
+  compararCargos(obj1, obj2) {
+    return obj1 && obj2 ? (obj1.nome === obj2.nome && obj1.nivel === obj2.nivel) : obj1 === obj2;
+  /*if (obj1 && obj2) {
+      return obj1.nome === obj2.nome && obj1.nivel === obj2.nivel;
+    }else {
+      return obj1 === obj2;
+    }*/
   }
 }

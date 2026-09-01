@@ -45,15 +45,16 @@ export class TemplateFormComponent implements OnInit {
     };
   }
 
-  consultaCEP(cep, form) {
+  consultaCEP(cep: any, form: any) {
     cep = cep.replace(/\D/g, '');
 
-     if (cep != null && cep !== '') {
+    if (cep != null && cep !== '') {
       this.cepService.consultaCEP(cep)
       .subscribe(dados => this.populaDadosForm(dados, form));
+    }
   }
 
-  populaDadosForm(dados, formulario) {
+  populaDadosForm(dados: any, formulario: any) {
     /*formulario.setValue({
       nome: formulario.value.nome,
       email: formulario.value.email,
@@ -82,7 +83,7 @@ export class TemplateFormComponent implements OnInit {
     // console.log(form);
   }
 
-  resetaDadosForm(formulario) {
+  resetaDadosForm(formulario: any) {
     formulario.form.patchValue({
       endereco: {
         rua: null,
