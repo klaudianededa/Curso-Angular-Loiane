@@ -13,8 +13,7 @@ import { BaseFormComponent } from './base-form/base-form.component';
   imports: [
     CommonModule,
     HttpClientModule,
-    FormsModule,
-    InputFieldComponent
+    FormsModule
   ],
   declarations: [
     FormDebugComponent,
