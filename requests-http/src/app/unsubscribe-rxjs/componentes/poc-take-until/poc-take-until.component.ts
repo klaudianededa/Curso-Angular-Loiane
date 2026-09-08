@@ -1,9 +1,10 @@
-import { Component, OnInit } from '@angular/core';
-import { EnviarValorService } from '../enviar-valor.service';
-import { tap, take } from 'rxjs/operators';
+import { Component, OnInit, OnDestroy } from '@angular/core';
+import { EnviarValorService } from '../../enviar-valor.service';
+import { Subject } from 'rxjs';
+import { tap, takeUntil } from 'rxjs/operators';
 
 @Component({
-  selector: 'app-poc-take',
+  selector: 'app-poc-take-until',
   template: `
     <app-poc-base [nome]="nome"
       [valor]="valor" estilo="bg-info">
