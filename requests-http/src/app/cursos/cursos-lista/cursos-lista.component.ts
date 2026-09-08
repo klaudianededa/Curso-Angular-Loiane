@@ -1,11 +1,11 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnInit, ViewChild } from '@angular/core';
 import { CursosService } from '../cursos.service';
 import { Curso } from '../curso';
 import { Observable, empty, of, Subject } from 'rxjs';
 import { catchError, switchMap } from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from '../../shared/alert-modal/alert-modal.component';
-import { AlertModalService } from '../../shared/alert-modal/alert-modal.service';
+import { AlertModalService } from '../../shared/alert-modal.service';
 import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
@@ -15,19 +15,25 @@ import { Router, ActivatedRoute } from '@angular/router';
   preserveWhitespaces: true
 })
 export class CursosListaComponent implements OnInit {
-
   // cursos: Curso[];
 
   // bsModalRef: BsModalRef;
 
+  deleteModalRef: BsModalRef;
+  @ViewChild('deleteModal') deleteModal;
+
   cursos$: Observable<Curso[]>;
   error$ = new Subject<boolean>();
 
-  constructor(private service: CursosService,
-    // private modalService: BsModalService) { }
+  cursoSelecionado: Curso;
+
+  constructor(
+    private service: CursosService,
+    private modalService: BsModalService,
     private alertService: AlertModalService,
     private router: Router,
-    private route: ActivatedRoute) { }
+    private route: ActivatedRoute
+  ) { }
 
   ngOnInit() {
     // this.service.list()
@@ -37,18 +43,17 @@ export class CursosListaComponent implements OnInit {
   }
 
   onRefresh() {
-    this.cursos$ = this.service.list()
-      .pipe(
-        // map(),
-        // tap(),
-        // switchMap(),
-        catchError(error => {
-          console.error(error);
-          // this.error$.next(true);
-          this.handleError();
-          return empty();
-        })
-      );
+    this.cursos$ = this.service.list().pipe(
+      // map(),
+      // tap(),
+      // switchMap(),
+      catchError(error => {
+        console.error(error);
+        // this.error$.next(true);
+        this.handleError();
+        return empty();
+      })
+    );
 
     // this.service.list()
     // .pipe(
@@ -74,4 +79,26 @@ export class CursosListaComponent implements OnInit {
     this.router.navigate(['editar', id], { relativeTo: this.route });
   }
 
+  onDelete(curso) {
+    this.cursoSelecionado = curso;
+    this.deleteModalRef = this.modalService.show(this.deleteModal, { class: 'modal-sm' });
+  }
+
+  onConfirmDelete() {
+    this.service.remove(this.cursoSelecionado.id)
+      .subscribe(
+        success => {
+          this.onRefresh();
+          this.deleteModalRef.hide();
+        },
+        error => {
+          this.alertService.showAlertDanger('Erro ao remover curso. Tente novamente mais tarde.');
+          this.deleteModalRef.hide();
+        }
+      );
+  }
+
+  onDeclineDelete() {
+    this.deleteModalRef.hide();
+  }
 }
