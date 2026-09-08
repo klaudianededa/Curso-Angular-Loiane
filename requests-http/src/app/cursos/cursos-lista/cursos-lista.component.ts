@@ -6,6 +6,7 @@ import { catchError, switchMap } from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from '../../shared/alert-modal/alert-modal.component';
 import { AlertModalService } from '../../shared/alert-modal.service';
+import { Router, ActivatedRoute } from '@angular/router';
 
 @Component({
   selector: 'app-cursos-lista',
@@ -15,7 +16,7 @@ import { AlertModalService } from '../../shared/alert-modal.service';
 })
 export class CursosListaComponent implements OnInit {
 
-  //cursos: Curso[];
+  // cursos: Curso[];
 
   // bsModalRef: BsModalRef;
 
@@ -24,11 +25,14 @@ export class CursosListaComponent implements OnInit {
 
   constructor(private service: CursosService,
     // private modalService: BsModalService) { }
-    private alertService: AlertModalService) { }
+    private alertService: AlertModalService,
+    private router: Router,
+    private route: ActivatedRoute) { }
 
   ngOnInit() {
     // this.service.list()
-    //   .subscribe(dados => this.cursos = dados);
+    // .subscribe(dados => this.cursos = dados);
+
     this.onRefresh();
   }
 
@@ -46,17 +50,6 @@ export class CursosListaComponent implements OnInit {
         })
       );
 
-    this.service.list()
-      .pipe(
-        catchError(error => empty())
-      )
-      .subscribe(
-        dados => {
-          console.log(dados);
-        }
-        // ,error => console.error(error),
-        // () => console.log('Observable completo!')
-      );
     // this.service.list()
     // .pipe(
     //   catchError(error => empty())
@@ -69,10 +62,16 @@ export class CursosListaComponent implements OnInit {
     //   // () => console.log('Obserservable completo!')
     // );
   }
+
   handleError() {
     this.alertService.showAlertDanger('Erro ao carregar cursos. Tente novamente mais tarde.');
     // this.bsModalRef = this.modalService.show(AlertModalComponent);
     // this.bsModalRef.content.type = 'danger';
     // this.bsModalRef.content.message = 'Erro ao carregar cursos. Tente novamente mais tarde.';
   }
+
+  onEdit(id) {
+    this.router.navigate(['editar', id], { relativeTo: this.route });
+  }
+
 }
