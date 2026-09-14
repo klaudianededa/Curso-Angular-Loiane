@@ -1,7 +1,7 @@
 import { Injectable } from '@angular/core';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from './alert-modal.component';
-import { ConfirmModalComponent } from './confirm-modal/confirm-modal.component';
+import { ConfirmModalComponent } from '../confirm-modal/confirm-modal.component';
 
 export enum AlertTypes {
     DANGER = 'danger',

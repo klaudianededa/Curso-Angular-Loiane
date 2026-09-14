@@ -5,7 +5,7 @@ import { Observable, empty, of, Subject, EMPTY } from 'rxjs';
 import { catchError, switchMap, take } from 'rxjs/operators';
 import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 import { AlertModalComponent } from '../../shared/alert-modal/alert-modal.component';
-import { AlertModalService } from '../../shared/alert-modal.service';
+import { AlertModalService } from '../../shared/alert-modal/alert-modal.service';
 import { Router, ActivatedRoute } from '@angular/router';
 import { Cursos2Service } from '../cursos2.service';
 
